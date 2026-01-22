@@ -31,7 +31,7 @@ const getBaseURL = () => {
     
     // Production: Vercel
     if (hostname.includes('vercel.app') || hostname.includes('frezona')) {
-      const prodUrl = PRODUCTION_API_URL || 'https://votre-backend.railway.app/api';
+      const prodUrl = PRODUCTION_API_URL || 'https://web-production-343b1.up.railway.app/api';
       console.log('🌐 Mode production - API URL:', prodUrl);
       return prodUrl;
     }
