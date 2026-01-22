@@ -55,6 +55,7 @@ function Admin() {
     fetchProducts();
     fetchCommandes();
     fetchPaniersComposes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   const fetchProducts = async () => {
