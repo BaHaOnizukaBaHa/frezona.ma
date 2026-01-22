@@ -63,14 +63,9 @@ function Navbar() {
                 </button>
               </>
             ) : (
-              <>
-                <Link to="/login" className="auth-button login-btn">
-                  Connexion
-                </Link>
-                <Link to="/register" className="auth-button register-btn">
-                  Inscription
-                </Link>
-              </>
+              <Link to="/login" className="auth-button login-btn" title="Se connecter">
+                👤
+              </Link>
             )}
           </div>
         </div>
