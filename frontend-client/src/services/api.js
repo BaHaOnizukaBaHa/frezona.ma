@@ -5,24 +5,38 @@ import { Capacitor } from '@capacitor/core';
  * Service API - Configuration et intercepteurs Axios
  */
 
-// ⚠️ IMPORTANT: Mettez ici l'adresse IP de votre PC (trouvée avec ipconfig)
-// Exemple: 192.168.1.X ou 192.168.0.X
+// ⚠️ CONFIGURATION API
+// Local: utilise localhost
+// Production (Vercel): utilise l'URL Railway via variable d'environnement
 const SERVER_IP = '192.168.8.168';
 const SERVER_PORT = '8082';
+
+// URL du backend en production (Railway) - À configurer dans Vercel
+const PRODUCTION_API_URL = process.env.REACT_APP_API_URL;
 
 // Configuration de l'URL de base selon l'environnement
 const getBaseURL = () => {
   const isNativePlatform = Capacitor.isNativePlatform();
   
+  // Mode mobile (Capacitor)
   if (isNativePlatform) {
     const url = `http://${SERVER_IP}:${SERVER_PORT}/api`;
     console.log('📱 Mode mobile - API URL:', url);
     return url;
   }
   
-  // En développement web
+  // En production (Vercel) - utiliser l'URL Railway
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
+    
+    // Production: Vercel
+    if (hostname.includes('vercel.app') || hostname.includes('frezona')) {
+      const prodUrl = PRODUCTION_API_URL || 'https://votre-backend.railway.app/api';
+      console.log('🌐 Mode production - API URL:', prodUrl);
+      return prodUrl;
+    }
+    
+    // Développement local
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
       console.log('🖥️ Mode web local - API URL: http://localhost:8082/api');
       return 'http://localhost:8082/api';
