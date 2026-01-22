@@ -1,38 +1,29 @@
 package com.bioelbaraka.rest;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Map;
-import java.util.UUID;
 
 /**
- * Contrôleur REST pour l'upload de fichiers (images)
+ * Contrôleur REST pour l'upload de fichiers (images) vers Cloudinary
  */
 @RestController
 @RequestMapping("/api/upload")
 public class UploadResource {
 
-    // Chemin absolu vers le dossier public du frontend
-    private String getUploadDir() {
-        // Obtenir le répertoire du projet
-        String userDir = System.getProperty("user.dir");
-        // Construire le chemin vers frontend-client/public/uploads
-        return userDir + File.separator + "frontend-client" + File.separator + "public" + File.separator + "uploads" + File.separator;
-    }
+    @Autowired
+    private Cloudinary cloudinary;
 
     /**
      * POST /api/upload/image
-     * Upload une image et retourne son URL
+     * Upload une image vers Cloudinary et retourne son URL
      */
     @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
@@ -56,43 +47,34 @@ public class UploadResource {
                     .body(Map.of("success", false, "message", "L'image ne doit pas dépasser 5MB"));
             }
 
-            // Créer le dossier uploads s'il n'existe pas
-            String uploadPath = getUploadDir();
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-            
-            System.out.println("📁 Dossier upload: " + uploadPath);
+            System.out.println("📤 Upload vers Cloudinary...");
 
-            // Générer un nom unique pour le fichier
-            String originalFilename = file.getOriginalFilename();
-            String extension = "";
-            if (originalFilename != null && originalFilename.contains(".")) {
-                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            }
-            String newFilename = UUID.randomUUID().toString() + extension;
+            // Upload vers Cloudinary
+            @SuppressWarnings("unchecked")
+            Map<String, Object> uploadResult = cloudinary.uploader().upload(
+                file.getBytes(),
+                ObjectUtils.asMap(
+                    "folder", "frezona",
+                    "resource_type", "image",
+                    "transformation", "q_auto,f_auto"
+                )
+            );
 
-            // Sauvegarder le fichier
-            Path targetPath = Paths.get(uploadPath + newFilename);
-            Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-            
-            System.out.println("💾 Fichier sauvegardé: " + targetPath.toAbsolutePath());
+            // Récupérer l'URL sécurisée
+            String imageUrl = (String) uploadResult.get("secure_url");
+            String publicId = (String) uploadResult.get("public_id");
 
-            // Retourner l'URL de l'image
-            String imageUrl = "/uploads/" + newFilename;
-            
-            System.out.println("✅ Image uploadée: " + imageUrl);
+            System.out.println("✅ Image uploadée sur Cloudinary: " + imageUrl);
 
             return ResponseEntity.ok(Map.of(
                 "success", true,
-                "message", "Image uploadée avec succès",
+                "message", "Image uploadée avec succès sur Cloudinary",
                 "imageUrl", imageUrl,
-                "filename", newFilename
+                "publicId", publicId
             ));
 
         } catch (IOException e) {
-            System.err.println("❌ Erreur upload: " + e.getMessage());
+            System.err.println("❌ Erreur upload Cloudinary: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("success", false, "message", "Erreur lors de l'upload: " + e.getMessage()));
@@ -100,19 +82,23 @@ public class UploadResource {
     }
 
     /**
-     * DELETE /api/upload/image/{filename}
-     * Supprime une image
+     * DELETE /api/upload/image/{publicId}
+     * Supprime une image de Cloudinary
      */
-    @DeleteMapping("/image/{filename}")
-    public ResponseEntity<?> deleteImage(@PathVariable String filename) {
+    @DeleteMapping("/image/{publicId}")
+    public ResponseEntity<?> deleteImage(@PathVariable String publicId) {
         try {
-            Path filePath = Paths.get(getUploadDir() + filename);
-            if (Files.exists(filePath)) {
-                Files.delete(filePath);
-                System.out.println("🗑️ Image supprimée: " + filename);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+            
+            String resultStatus = (String) result.get("result");
+            
+            if ("ok".equals(resultStatus)) {
+                System.out.println("🗑️ Image supprimée de Cloudinary: " + publicId);
                 return ResponseEntity.ok(Map.of("success", true, "message", "Image supprimée"));
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("success", false, "message", "Image non trouvée"));
             }
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -120,4 +106,3 @@ public class UploadResource {
         }
     }
 }
-
