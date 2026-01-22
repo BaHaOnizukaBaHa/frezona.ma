@@ -1,0 +1,305 @@
+/* ==========================================
+   PAGE INSCRIPTION - FREZONA.MA
+   ========================================== */
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, var(--bg-cream, #f9f7f4) 0%, var(--bg-green-light, #e8f5e9) 100%);
+}
+
+.register-card {
+  background: var(--white, #ffffff);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2.5rem;
+  max-width: 550px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease;
+}
+
+.register-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-green, #2d5a27), var(--accent-gold, #ffc107), var(--primary-green-light, #4a7c43));
+}
+
+.register-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-green, #2d5a27);
+  text-align: center;
+}
+
+.register-card > p {
+  color: var(--text-light, #555555);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Google Login Section */
+.google-login-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.google-login-section > div {
+  width: 100% !important;
+}
+
+.google-login-section iframe {
+  width: 100% !important;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--dark-gray, #666666);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--medium-gray, #e0e0e0);
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  color: var(--text-light, #555555);
+  white-space: nowrap;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Ligne de formulaire (2 colonnes) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.register-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.register-form .form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark, #1a1a1a);
+  font-size: 0.95rem;
+}
+
+.register-form .form-input,
+.register-form input,
+.register-form textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--medium-gray, #e0e0e0);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: var(--white, #ffffff);
+  color: var(--text-dark, #1a1a1a);
+}
+
+.register-form .form-input:focus,
+.register-form input:focus,
+.register-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-green, #2d5a27);
+  box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.1);
+}
+
+.register-form .form-input::placeholder,
+.register-form input::placeholder,
+.register-form textarea::placeholder {
+  color: var(--dark-gray, #666666);
+}
+
+.register-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.register-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-green, #2d5a27) 0%, var(--primary-green-light, #4a7c43) 100%);
+  color: var(--white, #ffffff);
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.35);
+}
+
+.register-btn:disabled {
+  background: var(--medium-gray, #e0e0e0);
+  color: var(--dark-gray, #666666);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Messages */
+.register-card .error {
+  color: #dc3545;
+  background: #ffeef0;
+  border: 1px solid #f5c2c7;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-card .error::before {
+  content: '⚠️';
+}
+
+.register-card .success {
+  color: #0f5132;
+  background: #d1e7dd;
+  border: 1px solid #badbcc;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-card .success::before {
+  content: '✅';
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--medium-gray, #e0e0e0);
+  color: var(--text-light, #555555);
+}
+
+.register-footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.link {
+  color: var(--primary-green, #2d5a27);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: var(--primary-green-light, #4a7c43);
+  text-decoration: underline;
+}
+
+/* Avantages d'inscription */
+.register-benefits {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-green-light, #e8f5e9);
+  border-radius: 12px;
+}
+
+.register-benefits h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-green, #2d5a27);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.register-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.register-benefits li {
+  padding: 0.5rem 0;
+  color: var(--text-dark, #1a1a1a);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.register-benefits li::before {
+  content: '✓';
+  color: var(--primary-green, #2d5a27);
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .register-container {
+    padding: 2rem 1rem;
+  }
+  
+  .register-card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .register-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .register-form .form-input,
+  .register-form input {
+    padding: 0.9rem 1rem;
+  }
+}

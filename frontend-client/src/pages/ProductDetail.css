@@ -1,0 +1,626 @@
+/* ========================================
+   PAGE DÉTAIL PRODUIT - DESIGN MODERNE
+   ======================================== */
+
+.detail-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8faf8 0%, #ffffff 100%);
+  padding-bottom: 2rem;
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+.breadcrumb {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #2d5a27;
+}
+
+.breadcrumb .separator {
+  color: #ccc;
+}
+
+.breadcrumb .current {
+  color: #2d5a27;
+  font-weight: 600;
+}
+
+/* ========================================
+   CONTAINER PRINCIPAL
+   ======================================== */
+.detail-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ========================================
+   SECTION IMAGE
+   ======================================== */
+.image-section {
+  position: sticky;
+  top: 2rem;
+}
+
+.main-image-wrapper {
+  position: relative;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.main-image {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.main-image.loaded {
+  opacity: 1;
+}
+
+.image-badges {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.image-badges .badge {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2d5a27 0%, #4a7c43 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+}
+
+.image-badges .badge.bio {
+  background: linear-gradient(135deg, #558b2f 0%, #7cb342 100%);
+}
+
+/* Garanties */
+.guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.guarantee-icon {
+  font-size: 1.25rem;
+}
+
+/* ========================================
+   SECTION INFORMATIONS
+   ======================================== */
+.info-section {
+  padding: 1rem 0;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.stock-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.stock-status.available {
+  background: #e8f5e9;
+  color: #2d5a27;
+}
+
+.stock-status.low {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.stock-status.out {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.product-description {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0 0 1.5rem 0;
+}
+
+/* ========================================
+   SECTION PRIX
+   ======================================== */
+.price-section {
+  background: linear-gradient(135deg, #f8faf8 0%, #e8f5e9 100%);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.price-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2d5a27;
+}
+
+.price-currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d5a27;
+}
+
+.price-unit {
+  font-size: 1rem;
+  color: #666;
+  margin-left: 0.5rem;
+}
+
+.stock-quantity {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* ========================================
+   SÉLECTEUR DE QUANTITÉ
+   ======================================== */
+.quantity-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.quantity-section label {
+  font-weight: 600;
+  color: #333;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.qty-btn:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  width: 60px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d5a27;
+}
+
+.subtotal {
+  font-size: 1rem;
+  color: #666;
+}
+
+.subtotal strong {
+  color: #2d5a27;
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   BOUTONS D'ACTION
+   ======================================== */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-add-cart, .btn-buy-now {
+  flex: 1;
+  padding: 1.1rem 1.5rem;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-add-cart {
+  background: white;
+  color: #2d5a27;
+  border: 2px solid #2d5a27;
+}
+
+.btn-add-cart:hover:not(:disabled) {
+  background: #f0f7f0;
+  transform: translateY(-2px);
+}
+
+.btn-add-cart.added {
+  background: #2d5a27;
+  color: white;
+  border-color: #2d5a27;
+}
+
+.btn-buy-now {
+  background: linear-gradient(135deg, #2d5a27 0%, #4a7c43 100%);
+  color: white;
+  box-shadow: 0 5px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-buy-now:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(45, 90, 39, 0.4);
+}
+
+.btn-add-cart:disabled, .btn-buy-now:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Message de succès */
+.success-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-message span {
+  color: #2d5a27;
+  font-weight: 600;
+}
+
+.view-cart-link {
+  color: #2d5a27;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.view-cart-link:hover {
+  text-decoration: underline;
+}
+
+/* ========================================
+   INFORMATIONS SUPPLÉMENTAIRES
+   ======================================== */
+.extra-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.info-icon {
+  font-size: 1.5rem;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ========================================
+   SECTION AVANTAGES
+   ======================================== */
+.benefits-section {
+  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+  padding: 1.5rem;
+  border-radius: 16px;
+  color: white;
+}
+
+.benefits-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.benefit-icon {
+  font-size: 1.25rem;
+}
+
+/* ========================================
+   BOUTON RETOUR FLOTTANT
+   ======================================== */
+.floating-back {
+  display: none;
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d5a27;
+  cursor: pointer;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  z-index: 100;
+  transition: all 0.3s;
+}
+
+.floating-back:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* ========================================
+   ÉTATS LOADING & ERROR
+   ======================================== */
+.loading-state, .error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e8e8e8;
+  border-top-color: #2d5a27;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 4rem;
+}
+
+.error-state h2 {
+  margin: 0;
+  color: #333;
+}
+
+.error-state p {
+  color: #666;
+  margin: 0;
+}
+
+.back-btn {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #2d5a27 0%, #4a7c43 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+  .detail-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .image-section {
+    position: relative;
+    top: 0;
+  }
+
+  .main-image {
+    height: 350px;
+  }
+
+  .floating-back {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .breadcrumb {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .detail-container {
+    padding: 0 1rem;
+  }
+
+  .product-header {
+    flex-direction: column;
+  }
+
+  .product-title {
+    font-size: 1.5rem;
+  }
+
+  .main-image {
+    height: 280px;
+  }
+
+  .guarantees {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .price-value {
+    font-size: 2rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .extra-info {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quantity-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

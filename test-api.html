@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API BioElBaraka</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        button { padding: 10px 20px; margin: 10px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .result { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 4px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test API BioElBaraka</h1>
+        
+        <div>
+            <button onclick="testConnection()">Tester la connexion</button>
+            <button onclick="getProducts()">Récupérer les produits</button>
+            <button onclick="initTestData()">Initialiser les données de test</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8081';
+        
+        function showResult(message, isError = false) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<div class="result ${isError ? 'error' : 'success'}">${message}</div>`;
+        }
+        
+        async function testConnection() {
+            try {
+                const response = await fetch(`${API_BASE}/produits`);
+                if (response.ok) {
+                    showResult('✅ Connexion au serveur réussie !');
+                } else {
+                    showResult(`❌ Erreur HTTP: ${response.status}`, true);
+                }
+            } catch (error) {
+                showResult(`❌ Erreur de connexion: ${error.message}`, true);
+            }
+        }
+        
+        async function getProducts() {
+            try {
+                const response = await fetch(`${API_BASE}/produits`);
+                const products = await response.json();
+                
+                if (products.length === 0) {
+                    showResult('📦 Aucun produit trouvé. Cliquez sur "Initialiser les données de test" pour ajouter des produits.');
+                } else {
+                    let html = `<h3>📦 Produits trouvés (${products.length}):</h3><ul>`;
+                    products.forEach(product => {
+                        html += `<li><strong>${product.nom}</strong> - ${product.prix}€ (${product.categorie})</li>`;
+                    });
+                    html += '</ul>';
+                    showResult(html);
+                }
+            } catch (error) {
+                showResult(`❌ Erreur lors de la récupération des produits: ${error.message}`, true);
+            }
+        }
+        
+        async function initTestData() {
+            try {
+                const response = await fetch(`${API_BASE}/produits/init-test-data`, {
+                    method: 'POST'
+                });
+                const result = await response.text();
+                showResult(`✅ ${result}`);
+            } catch (error) {
+                showResult(`❌ Erreur lors de l'initialisation: ${error.message}`, true);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "short_name": "Frezona.ma",
+  "name": "Frezona.ma - Légumes et fruits frais",
+  "description": "Application e-commerce pour légumes et fruits frais, BIO de saison et rangement cuisine",
+  "icons": [
+    {
+      "src": "f.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "f.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "f.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#379c00",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "categories": ["shopping", "food", "lifestyle"],
+  "lang": "fr",
+  "dir": "ltr"
+}

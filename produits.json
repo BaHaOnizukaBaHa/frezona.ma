@@ -1,0 +1,6 @@
+[
+  {"nom":"Huile d'olive 1L","description":"Huile d'olive extra vierge de qualité supérieure","prix":120.00,"stock":50,"imageUrl":"/huile_olive.jpg","categorie":"BIO"},
+  {"nom":"Œuf","description":"Œuf frais de poules élevées en plein air","prix":2.00,"stock":100,"imageUrl":"/oeuf.jpg","categorie":"Frais"},
+  {"nom":"Beurre fermier BIO 1kg","description":"Beurre fermier biologique artisanal","prix":100.00,"stock":30,"imageUrl":"/beurre_fermier.jpg","categorie":"BIO"},
+  {"nom":"Lait fermenté 1L","description":"Lait fermenté naturel sans conservateurs","prix":7.00,"stock":40,"imageUrl":"/lait_fermente.jpg","categorie":"BIO"}
+]
