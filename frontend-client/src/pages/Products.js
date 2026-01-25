@@ -30,11 +30,16 @@ function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        console.log('🔄 Chargement des produits...');
         const response = await api.get('/produits');
-        setProducts(response.data);
+        console.log('✅ Produits chargés:', response.data);
+        setProducts(response.data || []);
         setLoading(false);
       } catch (err) {
-        setError('Erreur lors du chargement des produits');
+        console.error('❌ Erreur chargement produits:', err);
+        console.error('❌ Détails:', err.response?.data || err.message);
+        const errorMessage = err.response?.data?.message || err.message || 'Erreur lors du chargement des produits';
+        setError(`Erreur: ${errorMessage}`);
         setLoading(false);
       }
     };

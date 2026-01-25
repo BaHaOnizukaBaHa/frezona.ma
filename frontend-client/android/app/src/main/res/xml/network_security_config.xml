@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Permettre toutes les connexions HTTPS -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    
+    <!-- Permettre les connexions vers Railway -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">web-production-343b1.up.railway.app</domain>
+        <domain includeSubdomains="true">railway.app</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
+
