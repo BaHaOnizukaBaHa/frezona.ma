@@ -21,18 +21,11 @@ const RAILWAY_API_URL = 'https://web-production-343b1.up.railway.app/api';
 const getBaseURL = () => {
   const isNativePlatform = Capacitor.isNativePlatform();
   
-  // Mode mobile (Capacitor) - Utiliser Railway en production
+  // Mode mobile (Capacitor) - Toujours utiliser Railway
+  // L'émulateur Android ne peut pas accéder à l'IP locale du PC
   if (isNativePlatform) {
-    // En mode release/production, utiliser Railway
-    // En mode debug/développement local, utiliser l'IP locale
-    const isProduction = process.env.NODE_ENV === 'production';
-    if (isProduction) {
-      console.log('📱 Mode mobile PRODUCTION - API URL:', RAILWAY_API_URL);
-      return RAILWAY_API_URL;
-    }
-    const url = `http://${SERVER_IP}:${SERVER_PORT}/api`;
-    console.log('📱 Mode mobile DEV - API URL:', url);
-    return url;
+    console.log('📱 Mode mobile - API URL:', RAILWAY_API_URL);
+    return RAILWAY_API_URL;
   }
   
   // En production (Vercel) - utiliser l'URL Railway
