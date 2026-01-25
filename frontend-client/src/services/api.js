@@ -14,14 +14,24 @@ const SERVER_PORT = '8082';
 // URL du backend en production (Railway) - À configurer dans Vercel
 const PRODUCTION_API_URL = process.env.REACT_APP_API_URL;
 
+// URL de production Railway
+const RAILWAY_API_URL = 'https://web-production-343b1.up.railway.app/api';
+
 // Configuration de l'URL de base selon l'environnement
 const getBaseURL = () => {
   const isNativePlatform = Capacitor.isNativePlatform();
   
-  // Mode mobile (Capacitor)
+  // Mode mobile (Capacitor) - Utiliser Railway en production
   if (isNativePlatform) {
+    // En mode release/production, utiliser Railway
+    // En mode debug/développement local, utiliser l'IP locale
+    const isProduction = process.env.NODE_ENV === 'production';
+    if (isProduction) {
+      console.log('📱 Mode mobile PRODUCTION - API URL:', RAILWAY_API_URL);
+      return RAILWAY_API_URL;
+    }
     const url = `http://${SERVER_IP}:${SERVER_PORT}/api`;
-    console.log('📱 Mode mobile - API URL:', url);
+    console.log('📱 Mode mobile DEV - API URL:', url);
     return url;
   }
   
@@ -29,9 +39,9 @@ const getBaseURL = () => {
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
     
-    // Production: Vercel
+    // Production: Vercel ou domaine personnalisé
     if (hostname.includes('vercel.app') || hostname.includes('frezona')) {
-      const prodUrl = PRODUCTION_API_URL || 'https://web-production-343b1.up.railway.app/api';
+      const prodUrl = PRODUCTION_API_URL || RAILWAY_API_URL;
       console.log('🌐 Mode production - API URL:', prodUrl);
       return prodUrl;
     }
@@ -43,7 +53,8 @@ const getBaseURL = () => {
     }
   }
   
-  return `http://${SERVER_IP}:${SERVER_PORT}/api`;
+  // Par défaut, utiliser Railway (pour les apps mobiles en production)
+  return RAILWAY_API_URL;
 };
 
 // Instance Axios configurée

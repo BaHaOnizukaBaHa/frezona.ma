@@ -22,6 +22,11 @@ function Products() {
     { id: 'osier', name: 'Osier', icon: '🧺', filter: 'osier' }
   ];
 
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -79,6 +84,8 @@ function Products() {
     } else {
       setSearchParams({ categorie: categoryFilter });
     }
+    // Scroll vers le haut lors du changement de catégorie
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleAddToCart = (product, e) => {
